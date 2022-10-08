@@ -54,7 +54,7 @@ def enviarSinResponder():
     for i in personasLista: #MANDA UN MENSAJE A CADA UNO DE LAS PERSONAS QUE HAY EN EL ARCHIVO
         bot = Bot(bot_token) #DEFINE "bot" A NUESTRO TOKEN
         
-        bot.send_message(chat_id=i,text="ESTO ES UNA PRUEBA!") #MANDA MENSAJE
+        bot.send_message(chat_id=i,text=f"Tu id es: {i}") #MANDA MENSAJE
 while True:
     h = input("Enviar mensaje")
     enviarSinResponder()
