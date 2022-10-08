@@ -42,7 +42,7 @@ updater.start_polling() #ENCIENDE EL BOT, PARA PARAR updater.stop()
 
 #USAR SIN COMANDOS, NO HACE FALTA EL USO DE LO DE ARRIBA, SALVO el "bot_token" Y LA LISTA DE CHAT-IDs
 #LIBRERIAS SIN RESPONDER
-from telegram import Bot #ENVIAR MENSAJES SIN RESPONDER
+from telegram import Bot, User #ENVIAR MENSAJES SIN RESPONDER
 
 #ENVIAR SIN RESPONDER
 def enviarSinResponder(h):
@@ -53,8 +53,8 @@ def enviarSinResponder(h):
             personasLista.append(persona)
     for i in personasLista: #MANDA UN MENSAJE A CADA UNO DE LAS PERSONAS QUE HAY EN EL ARCHIVO
         bot = Bot(bot_token) #DEFINE "bot" A NUESTRO TOKEN
-        
-        bot.send_message(chat_id=i,text=f"{Bot(i).first_name}\n{h}") #MANDA MENSAJE
+        user = User(i)
+        bot.send_message(chat_id=i,text=f"{user.first_name}\n{h}") #MANDA MENSAJE
 while True:
     h = input("Enviar mensaje: ")
     enviarSinResponder(h)
