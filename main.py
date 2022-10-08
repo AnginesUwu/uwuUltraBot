@@ -45,7 +45,7 @@ updater.start_polling() #ENCIENDE EL BOT, PARA PARAR updater.stop()
 from telegram import Bot #ENVIAR MENSAJES SIN RESPONDER
 
 #ENVIAR SIN RESPONDER
-def enviarSinResponder():
+def enviarSinResponder(h):
     personasLista = [] #CREA LISTA
     with open('personas/personas.txt', 'r') as archivo: #OBTIENE CHAT IDs OBTENIDOS GRACIAS A /personas
         for personaLinea in archivo:
@@ -54,7 +54,7 @@ def enviarSinResponder():
     for i in personasLista: #MANDA UN MENSAJE A CADA UNO DE LAS PERSONAS QUE HAY EN EL ARCHIVO
         bot = Bot(bot_token) #DEFINE "bot" A NUESTRO TOKEN
         
-        bot.send_message(chat_id=i,text=f"Tu id es: {i}") #MANDA MENSAJE
+        bot.send_message(chat_id=i,text=f"Tu id es: {i}\n{h}") #MANDA MENSAJE
 while True:
-    h = input("Enviar mensaje")
-    enviarSinResponder()
+    h = input("Enviar mensaje: ")
+    enviarSinResponder(h)
