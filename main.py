@@ -2,6 +2,7 @@
 #Hola git pull command :)
 bot_token = "5756497503:AAGupePh024UdwwUu3kePQDJ7ziDY5jWfdY"
 
+from html import entities
 from telegram import Update
 from telegram.ext import Updater, ContextTypes #SEND MESSAGES
 import logging #LOGEO
@@ -43,18 +44,27 @@ updater.start_polling() #ENCIENDE EL BOT, PARA PARAR updater.stop()
 #USAR SIN COMANDOS, NO HACE FALTA EL USO DE LO DE ARRIBA, SALVO el "bot_token" Y LA LISTA DE CHAT-IDs
 #LIBRERIAS SIN RESPONDER
 from telegram import Bot, User #ENVIAR MENSAJES SIN RESPONDER
+from telegram import MessageEntity
 
-#ENVIAR SIN RESPONDER
-def enviarSinResponder(h):
+#ENVIAR A SUBSCRIPTORES
+def sendMessage(h):
+    # bold - italic - url - cashtag - code - email - custom_emoji - hashtag - mention - spoiler
+    # bot_command - phone_number - underline - pre - strikethrough - text_link - text_mention - 
+    #
+    # Markdown V1 Sintax
+    #   bold: *text*    -   italic: _text_  -   link: [text](url)  -   code: `text` 
+    
+    entiti = MessageEntity(type="text_link", offset=0,length=9, url="https://instagram.com/marurunk")
     personasLista = [] #CREA LISTA
     with open('personas/personas.txt', 'r') as archivo: #OBTIENE CHAT IDs OBTENIDOS GRACIAS A /personas
         for personaLinea in archivo:
             persona = personaLinea[:-1]
             personasLista.append(persona)
-    for i in personasLista: #MANDA UN MENSAJE A CADA UNO DE LAS PERSONAS QUE HAY EN EL ARCHIVO
+    for i in personasLista: #MANDA UN MENSAJE A CADA UNO DE LAS subscripciones
         bot = Bot(bot_token) #DEFINE "bot" A NUESTRO TOKEN
-        user = User(i)
-        bot.send_message(chat_id=i,text=f"{user.first_name}\n{h}") #MANDA MENSAJE
+        
+        bot.send_message(chat_id=i,text=f"{h}", parse_mode="Markdown") #MANDA MENSAJE
+#        bot.send_message(chat_id=i,text=f"{h}", entities=[entiti]) #MANDA MENSAJE
 while True:
     h = input("Enviar mensaje: ")
-    enviarSinResponder(h)
+    sendMessage(h)
